@@ -8,11 +8,6 @@ class WebNotification extends Component {
     notification: {}
   }
 
-  static defaultProps = {
-    show,
-    close
-  };
-
   constructor(props) {
     super(props);
   }
@@ -24,6 +19,26 @@ class WebNotification extends Component {
       });
     }
   }
+
+  componentDidMount() {
+    const { message, icon, timeout, clickFn } = this.props;
+
+    if(!icon) {
+      this.state.notification = new window.Notification(message);
+    } else {
+      this.state.notification = new window.Notification(message, { icon });
+    }
+
+    if(clickFn) {
+      this.state.notification.onClick = clickFn;
+    }
+
+    window.setTimeout(() => {
+      this.state.notification.close();
+    }, (timeout || 5000));
+  }
+
+  close = () => this.state.notification.close();
 
   render () {
     return null;
