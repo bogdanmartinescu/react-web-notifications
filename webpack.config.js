@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    'react-web-notification.min': './src/index.js'
+    'react-web-notifications.min': './src/index.js'
   },
   externals: {
     'react': {
