@@ -1,0 +1,35 @@
+{
+  "name": "react-web-notifications",
+  "version": "0.0.1",
+  "description": "Web notifications component for React",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p"
+  },
+  "author": "Bogdan M <liviu.bogdan.martinescu@gmail.com> (http://mlb.ro/)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "~6.24.1",
+    "babel-loader": "~6.4.1",
+    "babel-preset-env": "~1.5.2",
+    "babel-preset-react": "~6.24.1",
+    "babel-preset-stage-0": "~6.24.1",
+    "react": "~15.5.3",
+    "react-dom": "~15.5.3",
+    "webpack": "~2.3.3"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
+  },
+  "tags": [
+    "react",
+    "web-notification",
+    "notification"
+  ],
+  "keywords": [
+    "react",
+    "web-notification"
+  ]
+}
