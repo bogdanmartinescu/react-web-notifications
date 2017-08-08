@@ -4,9 +4,7 @@ import window from 'global/window';
 import document from 'global/document';
 
 class WebNotification extends Component {
-  state = {
-    notification: {}
-  }
+  notification = {};
 
   constructor(props) {
     super(props);
@@ -24,21 +22,21 @@ class WebNotification extends Component {
     const { message, icon, timeout, clickFn } = this.props;
 
     if(!icon) {
-      this.state.notification = new window.Notification(message);
+      this.notification = new window.Notification(message);
     } else {
-      this.state.notification = new window.Notification(message, { icon });
+      this.notification = new window.Notification(message, { icon });
     }
 
     if(clickFn) {
-      this.state.notification.onClick = clickFn;
+      this.notification.onClick = clickFn;
     }
 
     window.setTimeout(() => {
-      this.state.notification.close();
+      this.notification.close();
     }, (timeout || 5000));
   }
 
-  close = () => this.state.notification.close();
+  close = () => this.notification.close();
 
   render () {
     return null;
