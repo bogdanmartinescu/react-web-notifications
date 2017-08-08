@@ -1,11 +1,17 @@
 {
-  "name": "react-web-notifications",
+  "name": "react-web-notification",
   "version": "0.0.1",
   "description": "Web notifications component for React",
-  "main": "index.js",
+  "main": "./dist/react-web-notification.min.js",
   "scripts": {
     "build": "webpack -p"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bogdanmartinescu/react-web-notification.git"
+  },
+  "homepage": "https://github.com/bogdanmartinescu/react-web-notification",
+  "bugs": "https://github.com/bogdanmartinescu/react-web-notification/issues",
   "author": "Bogdan M <liviu.bogdan.martinescu@gmail.com> (http://mlb.ro/)",
   "license": "MIT",
   "devDependencies": {

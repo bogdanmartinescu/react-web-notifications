@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    'react-notifications.min': './src/index.js'
+    'react-web-notification.min': './src/index.js'
   },
   externals: {
     'react': {
@@ -24,7 +24,7 @@ module.exports = {
     filename: '[name].js',
     path: path.join(__dirname, 'dist'),
     publicPath: 'dist/',
-    library: 'ReactNotifications',
+    library: 'ReactWebNotification',
     libraryTarget: 'umd'
   }
 }
