@@ -1,34 +1,38 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import window from 'global/window';
-import document from 'global/document';
 
 class WebNotification extends Component {
+
   notification = {};
 
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     if(window.Notification) {
       window.Notification.requestPermission( result => {
           if(result !== 'granted') return;
+          this.show();
       });
     }
   }
 
-  componentDidMount() {
-    const { message, icon, timeout, clickFn } = this.props;
+  show() {
+    const { title, icon, body, timeout, onClickFn } = this.props;
+    if(!title) return;
 
-    if(!icon) {
-      this.notification = new window.Notification(message);
-    } else {
-      this.notification = new window.Notification(message, { icon });
+    let options = {};
+
+    if(icon) {
+      Object.assign(options, { icon });
     }
 
-    if(clickFn) {
-      this.notification.onClick = clickFn;
+    if(body) {
+      Object.assign(options, { body });
+    }
+
+    this.notification = new window.Notification(title, options);
+
+    if(onClickFn) {
+      this.notification.addEventListener("click", onClickFn, false);
     }
 
     window.setTimeout(() => {
@@ -36,11 +40,17 @@ class WebNotification extends Component {
     }, (timeout || 5000));
   }
 
-  close = () => this.notification.close();
-
   render () {
     return null;
   }
 }
+
+WebNotification.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.string,
+    body: PropTypes.string,
+    timeout: PropTypes.number,
+    onClickFn: PropTypes.func
+};
 
 export default WebNotification;
