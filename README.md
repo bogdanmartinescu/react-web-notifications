@@ -2,8 +2,6 @@
 
 Simple web notifications component for React
 
-<br />
-
 ## Install
 
 ```
