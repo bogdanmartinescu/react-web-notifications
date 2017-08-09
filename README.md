@@ -16,13 +16,12 @@ $ npm install react-web-notifications --save
 import WebNotification from 'react-web-notifications'
 ```
 
-
 ```js
   <WebNotification
-        title="Hello World" // the title prop is required
+        title="Hello, World!" // the title prop is required
         icon="path/to/image.jpg"
         body="This is a web notification"
-        timeout="9000"
+        timeout={9000}
         onClickFn={ () => window.open('http://www.google.com/', '_blank') } // open your own site on notification click
   />
 
