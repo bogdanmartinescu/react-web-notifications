@@ -1,6 +1,6 @@
 {
   "name": "react-web-notifications",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple web notifications component for React",
   "main": "./dist/react-web-notifications.min.js",
   "scripts": {
@@ -22,6 +22,7 @@
     "babel-preset-stage-0": "~6.24.1",
     "react": "~15.5.3",
     "react-dom": "~15.5.3",
+    "prop-types": "15.5.10",
     "webpack": "~2.3.3"
   },
   "peerDependencies": {
@@ -36,6 +37,7 @@
   ],
   "keywords": [
     "react",
-    "web-notification"
+    "web-notification",
+    "html5 notifications"
   ]
 }
