@@ -1,4 +1,4 @@
-## react-web-notifications
+## React Web Notifications
 
 Simple web notifications component for React
 
@@ -24,5 +24,17 @@ import WebNotification from 'react-web-notifications'
   />
 
 ```
+
+## API
+
+| Prop  | Type   | Required |
+|-------|--------|----------|
+| title | string | true     |
+| icon  | string | false    |
+| body  | string | false    |
+| timeout  | integer | false    |
+| onClickFn  | function | false    |
+
+
 
 MIT © [Bogdan M](http://mlb.ro)
