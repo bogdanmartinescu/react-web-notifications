@@ -2,6 +2,8 @@
 
 Simple web notifications component for React
 
+[![NPM](https://nodei.co/npm/react-web-notifications.png)](https://nodei.co/npm/react-web-notifications/)
+
 ## Install
 
 ```
