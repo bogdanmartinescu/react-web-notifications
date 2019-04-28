@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import window from 'global/window';
 
 class WebNotification extends Component {
 
-  notification = {};
+  state = {
+    notification: {},
+    options: {}
+  }
 
   componentDidMount() {
     if(window.Notification) {
@@ -17,26 +19,31 @@ class WebNotification extends Component {
 
   show() {
     const { title, icon, body, timeout, onClickFn } = this.props;
+    
     if(!title) return;
 
-    let options = {};
-
     if(icon) {
-      Object.assign(options, { icon });
+        this.setState({ 
+            options: {...this.state.options, icon }
+        });
     }
 
     if(body) {
-      Object.assign(options, { body });
+        this.setState({
+            options: {...this.state.options, body }
+        });
     }
 
-    this.notification = new window.Notification(title, options);
+    this.setState({
+      notification: new window.Notification(title, this.state.options)
+    });
 
     if(onClickFn) {
-      this.notification.addEventListener("click", onClickFn, false);
+      this.state.notification.addEventListener("click", onClickFn, false);
     }
 
     window.setTimeout(() => {
-      this.notification.close();
+      this.state.notification.close();
     }, (timeout || 5000));
   }
 
