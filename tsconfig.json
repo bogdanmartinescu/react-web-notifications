@@ -18,7 +18,7 @@
       "noUnusedLocals": true,
       "noUnusedParameters": true
     },
-    "include": ["src"],
+    "include": ["src/*.tsx"],
     "exclude": ["node_modules", "build"]
   }
   

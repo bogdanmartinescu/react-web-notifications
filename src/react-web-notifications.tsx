@@ -1,16 +1,23 @@
 import * as React from 'react';
 
+"use strict";
+
 interface Props {
     title: string;
     icon?: string;
-    body?: string;
+    body?: string;  
     timeout?: number;
     onClickFn?: () => any;
 }
 
 const WebNotification: React.FC<Props> = ({ title, icon, body, timeout, onClickFn }) => {
-    const [notification, setNotification] = React.useState(new window.Notification(title));
-    const [options, setOptions] = React.useState({});
+    let notification: any = null;
+
+    let options: any = {
+        title,
+        body,
+        timeout
+    };
 
     React.useEffect(() => {
         if (window.Notification) {
@@ -24,27 +31,21 @@ const WebNotification: React.FC<Props> = ({ title, icon, body, timeout, onClickF
     const show = () => {
         if(!title) return;
 
-        if(icon) {
-            setOptions({ ...options, icon });
+        options.icon = icon;
+        options.body = body;
+        options.timeout = timeout;
+
+        if(!notification) {
+            notification = new window.Notification(title, options);
+
+            if (onClickFn) {
+                notification.addEventListener('click', onClickFn, false);
+            }
+
+            window.setTimeout(() => {
+                notification.close();
+            }, timeout || 5000);
         }
-
-        if(body) {
-            setOptions({ ...options, body });
-        }
-
-        if(timeout) {
-            setOptions({ ...options, timeout });
-        }
-
-        setNotification(new window.Notification(title, options));
-
-        if (onClickFn) {
-            notification.addEventListener('click', onClickFn, false);
-        }
-
-        window.setTimeout(() => {
-            notification.close();
-        }, timeout || 5000);
     };
 
     return null;
