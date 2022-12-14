@@ -13,14 +13,12 @@ function _interopNamespace(e) {
                 var d = Object.getOwnPropertyDescriptor(e, k);
                 Object.defineProperty(n, k, d.get ? d : {
                     enumerable: true,
-                    get: function () {
-                        return e[k];
-                    }
+                    get: function () { return e[k]; }
                 });
             }
         });
     }
-    n['default'] = e;
+    n["default"] = e;
     return Object.freeze(n);
 }
 
@@ -62,5 +60,5 @@ var WebNotification = function (_a) {
     return null;
 };
 
-exports.default = WebNotification;
+exports["default"] = WebNotification;
 //# sourceMappingURL=react-web-notifications.js.map

@@ -36,5 +36,5 @@ var WebNotification = function (_a) {
     return null;
 };
 
-export default WebNotification;
+export { WebNotification as default };
 //# sourceMappingURL=react-web-notifications.es.js.map

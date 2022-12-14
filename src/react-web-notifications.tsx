@@ -5,15 +5,22 @@ import * as React from 'react';
 interface Props {
     title: string;
     icon?: string;
-    body?: string;  
+    body?: string;
     timeout?: number;
     onClickFn?: () => any;
 }
 
-const WebNotification: React.FC<Props> = ({ title, icon, body, timeout, onClickFn }) => {
+interface iOptions {
+    title: string;
+    icon?: string;
+    body?: string;
+    timeout?: number;
+}
+
+const WebNotification: React.FC<Props> = ({ title, icon, body, timeout, onClickFn }: Props) => {
     let notification: any = null;
 
-    let options: any = {
+    let options: iOptions = {
         title,
         body,
         timeout
@@ -29,13 +36,13 @@ const WebNotification: React.FC<Props> = ({ title, icon, body, timeout, onClickF
     }, [title]);
 
     const show = () => {
-        if(!title) return;
+        if (!title) return;
 
         options.icon = icon;
         options.body = body;
         options.timeout = timeout;
 
-        if(!notification) {
+        if (!notification) {
             notification = new window.Notification(title, options);
 
             if (onClickFn) {
