@@ -39,4 +39,4 @@ import WebNotification from 'react-web-notifications'
 
 
 
-MIT © [Bogdan M](http://mlb.ro)
+MIT
