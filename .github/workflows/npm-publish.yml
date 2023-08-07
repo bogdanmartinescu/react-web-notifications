@@ -40,18 +40,18 @@ jobs:
       - name: Extract package.json info
         id: extract_info
         run: |
-          echo "::set-output name=tag_name::$(node -p 'require(\"./package.json\").version')"
-          echo "::set-output name=release_name::$(node -p 'require(\"./package.json\").name')"
-          echo "::set-output name=body::$(node -p 'require(\"./package.json\").description')"
+          echo "tag_name=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_ENV
+          echo "release_name=$(node -p 'require(\"./package.json\").name')" >> $GITHUB_ENV
+          echo "body=$(node -p 'require(\"./package.json\").description')" >> $GITHUB_ENV
         continue-on-error: true
 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: ${{ steps.extract_info.outputs.tag_name }}
-          release_name: ${{ steps.extract_info.outputs.release_name }} ${{ steps.extract_info.outputs.tag_name }}
-          body: ${{ steps.extract_info.outputs.body }}
+          tag_name: ${{ env.tag_name }}
+          release_name: ${{ env.release_name }} ${{ env.tag_name }}
+          body: ${{ env.body }}
           draft: false
           prerelease: false
         env:
@@ -90,7 +90,7 @@ jobs:
         uses: actions/create-release@v1
         with:
           files: ./*.tgz
-          release_name: ${{ steps.extract_info.outputs.release_name }} ${{ steps.extract_info.outputs.tag_name }}
-          tag_name: ${{ steps.extract_info.outputs.tag_name }}
+          release_name: ${{ env.release_name }} ${{ env.tag_name }}
+          tag_name: ${{ env.tag_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
