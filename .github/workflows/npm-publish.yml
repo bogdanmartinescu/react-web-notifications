@@ -27,38 +27,8 @@ jobs:
       - run: npm ci
       - run: npm test
 
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-
-      - name: Extract package.json info
-        id: extract_info
-        run: |
-          echo "tag_name=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_ENV
-          echo "release_name=$(node -p 'require(\"./package.json\").name')" >> $GITHUB_ENV
-          echo "body=$(node -p 'require(\"./package.json\").description')" >> $GITHUB_ENV
-        continue-on-error: true
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: ${{ env.tag_name }}
-          release_name: ${{ env.release_name }} ${{ env.tag_name }}
-          body: ${{ env.body }}
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
   publish-npm:
-    needs: [release, test]
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -73,24 +43,3 @@ jobs:
 
       - name: Create Tarball
         run: npm pack
-
-  create-github-package:
-    needs: publish-npm
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - run: npm ci
-      - run: npm pack
-
-      - name: Create GitHub Package
-        uses: actions/create-release@v1
-        with:
-          files: ./*.tgz
-          release_name: ${{ env.release_name }} ${{ env.tag_name }}
-          tag_name: ${{ env.tag_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} 
