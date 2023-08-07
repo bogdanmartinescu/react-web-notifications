@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-"use strict";
-
 interface Props {
     title: string;
     icon?: string;

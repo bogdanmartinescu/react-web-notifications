@@ -34,7 +34,7 @@ import WebNotification from 'react-web-notifications'
 | title | string | true     |
 | icon  | string | false    |
 | body  | string | false    |
-| timeout  | integer | false    |
+| timeout  | number | false    |
 | onClickFn  | function | false    |
 
 
