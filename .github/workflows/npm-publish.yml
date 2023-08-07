@@ -69,7 +69,7 @@ jobs:
       - run: npm ci
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Tarball
         run: npm pack
@@ -93,4 +93,4 @@ jobs:
           release_name: ${{ env.release_name }} ${{ env.tag_name }}
           tag_name: ${{ env.tag_name }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }} 
