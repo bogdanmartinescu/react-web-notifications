@@ -1,61 +1,61 @@
 {
 	"name": "react-web-notifications",
-	"version": "1.2.9",
+	"version": "2.0.0",
 	"description": "Simple web notifications component for React",
-	"main": "./dist/react-web-notifications.js",
-	"module": "./dist/react-web-notifications.es.js",
-	"jsnext:main": "./dist/react-web-notifications.es.js",
+	"files": [
+		"dist"
+	],
+	"sideEffects": false,
 	"scripts": {
-		"build": "yarn clean && rollup -c",
-		"clean": "rm -rf ./dist && rm -rf node_modules && yarn install",
-		"test": "jest"
+		"build": "tsdown",
+		"lint": "oxlint --deny-warnings",
+		"typecheck": "tsc",
+		"test": "vitest run",
+		"prepack": "npm run build"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/bogdanmartinescu/react-web-notifications.git"
+		"url": "git+https://github.com/bogdanmartinescu/react-web-notifications.git"
 	},
 	"homepage": "https://github.com/bogdanmartinescu/react-web-notifications",
 	"bugs": "https://github.com/bogdanmartinescu/react-web-notifications/issues",
 	"author": "Bogdan M <hi@mlb.ro> (http://mlb.ro/)",
 	"license": "MIT",
-	"devDependencies": {
-		"@babel/core": "^7.22.9",
-		"@babel/helper-compilation-targets": "^7.22.9",
-		"@babel/preset-env": "^7.22.9",
-		"@babel/preset-react": "^7.22.5",
-		"@types/enzyme": "^3.10.13",
-		"@types/jest": "^26.0.24",
-		"@types/node": "^15.14.9",
-		"@types/react": "^17.0.62",
-		"@types/react-dom": "^17.0.20",
-		"enzyme": "^3.11.0",
-		"jest": "^26.6.3",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"rollup": "^2.79.1",
-		"rollup-plugin-commonjs": "^10.1.0",
-		"rollup-plugin-node-resolve": "^5.2.0",
-		"rollup-plugin-peer-deps-external": "^2.2.4",
-		"rollup-plugin-typescript2": "^0.30.0",
-		"ts-jest": "^26.5.6",
-		"tslib": "^2.6.1",
-		"typescript": "^4.9.5"
-	},
 	"peerDependencies": {
-		"react": "^17.0.0 || ^18.0.0",
-		"react-dom": "^17.0.0 || ^18.0.0"
+		"react": "^17.0.0 || ^18.0.0 || ^19.0.0"
 	},
-	"resolutions": {
-		"tslib": "^2.5.0"
-	},
-	"tags": [
-		"react",
-		"web-notification",
-		"notification"
-	],
 	"keywords": [
 		"react",
 		"web-notification",
+		"notification",
 		"html5 notifications"
-	]
+	],
+	"devDependencies": {
+		"@arethetypeswrong/core": "^0.18.5",
+		"@testing-library/dom": "^10.4.2",
+		"@testing-library/react": "^16.3.3",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
+		"jsdom": "^31.0.1",
+		"oxlint": "^1.94.0",
+		"publint": "^0.3.25",
+		"react": "^19.3.1",
+		"react-dom": "^19.3.1",
+		"tsdown": "^0.23.7",
+		"typescript": "^7.0.2",
+		"vitest": "^5.1.1"
+	},
+	"main": "./dist/react-web-notifications.js",
+	"module": "./dist/react-web-notifications.mjs",
+	"types": "./dist/react-web-notifications.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/react-web-notifications.mjs",
+			"require": "./dist/react-web-notifications.js"
+		},
+		"./package.json": "./package.json",
+		"./dist/react-web-notifications.js": "./dist/react-web-notifications.js",
+		"./dist/react-web-notifications.es.js": "./dist/react-web-notifications.mjs"
+	},
+	"type": "commonjs"
 }

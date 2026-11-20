@@ -1,57 +1,63 @@
-import * as React from 'react';
+import { useEffect, useRef } from 'react';
 
-interface Props {
+export interface WebNotificationProps {
     title: string;
     icon?: string;
     body?: string;
     timeout?: number;
-    onClickFn?: () => any;
+    onClickFn?: (event: Event) => void;
 }
 
-interface iOptions {
-    title: string;
-    icon?: string;
-    body?: string;
-    timeout?: number;
-}
+const DEFAULT_TIMEOUT = 5000;
 
-const WebNotification: React.FC<Props> = ({ title, icon, body, timeout, onClickFn }: Props) => {
-    let notification: any = null;
+const requestPermission = (): Promise<NotificationPermission> => {
+    if (Notification.permission !== 'default') {
+        return Promise.resolve(Notification.permission);
+    }
 
-    let options: iOptions = {
-        title,
-        body,
-        timeout
-    };
+    // Older Safari only supports the callback form and returns undefined.
+    return new Promise((resolve) => {
+        const result = Notification.requestPermission(resolve);
+        if (result) result.then(resolve, () => resolve('denied'));
+    });
+};
 
-    React.useEffect(() => {
-        if (window.Notification) {
-            window.Notification.requestPermission((result) => {
-                if (result !== 'granted') return;
-                show();
-            });
-        }
-    }, [title]);
+function WebNotification(props: WebNotificationProps): null {
+    const propsRef = useRef(props);
+    const { title } = props;
 
-    const show = () => {
-        if (!title) return;
+    useEffect(() => {
+        propsRef.current = props;
+    });
 
-        options.icon = icon;
-        options.body = body;
-        options.timeout = timeout;
+    useEffect(() => {
+        if (!title || !('Notification' in window)) return;
 
-        if (!notification) {
-            notification = new window.Notification(title, options);
+        let cancelled = false;
 
-            if (onClickFn) {
-                notification.addEventListener('click', onClickFn, false);
+        requestPermission().then((permission) => {
+            if (cancelled || permission !== 'granted') return;
+
+            const { icon, body, timeout } = propsRef.current;
+            let notification: Notification;
+            try {
+                notification = new Notification(title, { icon, body });
+            } catch {
+                // Chrome on Android only allows notifications through a service worker.
+                return;
             }
 
-            window.setTimeout(() => {
-                notification.close();
-            }, timeout || 5000);
-        }
-    };
+            notification.addEventListener('click', (event) => {
+                propsRef.current.onClickFn?.(event);
+            });
+
+            window.setTimeout(() => notification.close(), timeout || DEFAULT_TIMEOUT);
+        });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [title]);
 
     return null;
 }

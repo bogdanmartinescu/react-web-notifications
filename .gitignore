@@ -1,6 +1,4 @@
-**.log
+*.log
 node_modules
-examples/simple/build
-**/build
-tests
-test-app
+dist
+*.tgz
